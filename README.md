@@ -8,7 +8,7 @@ En double-cliquant sur une photo de profil l'utilisateur peut "liker" le profil.
 Toutes les transitions sont animées par des animations android customisées à partir de la classe *Animation*.  
 L'application implémente la détection des mouvements "swipe" pour afficher le profil suivant ou précédent: . 
 
-<img src="readme_src/swipe_photo_profil.mp4" width="300">
+<img src="readme_src/swipe_photo_profil.gif" width="300">
 
 Afficher ou masquer la description du profil:
 
