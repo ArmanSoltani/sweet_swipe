@@ -1,14 +1,14 @@
 # Sweet Swipe
 
-Sweet Swipe est une application android présentant à l'utilisateur un ensemble de profil avec une photo et une description. 
+Sweet Swipe est une application android présentant à l'utilisateur un ensemble de profils avec une photo et une description. 
 En double-cliquant sur une photo de profil l'utilisateur peut "liker" le profil.
 
 ## Animations
 
 Toutes les transitions sont animées par des animations android customisées à partir de la classe *Animation*.  
-L'application implémentant la détection des mouvements "swipe" pour afficher le profil suivant ou précédent: . 
+L'application implémente la détection des mouvements "swipe" pour afficher le profil suivant ou précédent: . 
 
-<img src="readme_src/swipe_photo_profil.gif" width="300">
+<img src="readme_src/swipe_photo_profil.mp4" width="300">
 
 Afficher ou masquer la description du profil:
 
