@@ -22,5 +22,5 @@ La détection du double-clique afin de "liker" un profil:
 
 L'effet de transition entre les photos de profil est réalisé via un swap buffer composé de deux ImageView.
 
-<img src="readme_src/swap_buffer_schema.jpg" width="500">
+<img src="readme_src/swap_buffer_schema.jpg" width="1000">
 
