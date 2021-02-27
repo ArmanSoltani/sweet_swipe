@@ -1,4 +1,4 @@
-package com.example.tp3_ai08;
+package com.example.sweet_swipe;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -18,17 +18,16 @@ import androidx.core.view.GestureDetectorCompat;
 
 import java.util.Random;
 
+
 public class MainActivity extends AppCompatActivity {
 
+    static float hearthSize = 160;
     RelativeLayout rootLayout;
     FrameLayout mImagesContainer;
     ImageView mImage1;
     ImageView mImage2;
     TextView mDetails;
     TextView mName;
-
-    static float hearthSize = 160;
-
     int curProfil = 0;
     boolean detailsShow = false;
     boolean swipeAnimRunning = false;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Sweet swipe");
+        setTitle("Sweet Swipe");
 
         rootLayout = findViewById(R.id.main_activity_root);
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         mImage1.setClipToOutline(true);
         mImage2.setClipToOutline(true);
         mImage2.setVisibility(View.GONE);
-        mImage1.setImageResource(Data.profils[curProfil]);
+        mImage1.setImageResource(Data.profilePictures[curProfil]);
 
         // init description profil
         mDetails = findViewById(R.id.tv_profil_details);
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         mName.setAlpha(0f);
 
         shortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
 
         mGestureDetector = new GestureDetectorCompat(this, new CustomGestureListener());
         mDoubleTapDetecor = new GestureDetectorCompat(this, new CustomDoubleTapListener());
@@ -107,12 +105,16 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Permet de faire apparaitre un coeur animé
+     *
      * @param x la position X du coeur
      * @param y la position Y du coeur
      */
     public void popHearth(float x, float y) {
+        // On crée une nouvelle ImageView au bon endroit et on la place dans le rootLayout
         final ImageView hearth = new ImageView(this);
         int size = (int) hearthSize;
+        // Si on affiche pas les détails du profil alors la photo est plus grande et c'est plus
+        // estétique d'augmenter la taille du coeur
         if (!detailsShow)
             size *= 2;
         hearth.setLayoutParams(new FrameLayout.LayoutParams(size, size));
@@ -121,12 +123,14 @@ public class MainActivity extends AppCompatActivity {
         hearth.setY(y);
         rootLayout.addView(hearth);
 
+        // initialisation de l'animation
         Random rand = new Random();
         Animations.HearthAnimation hearthAnim = new Animations.HearthAnimation(hearth, 0f, rand.nextInt(1000) - 500, -(rand.nextInt(500) + 1000));
         hearthAnim.setDuration(1000);
         hearthAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -134,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
 
         hearth.startAnimation(hearthAnim);
@@ -168,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Cacher les détails du profil et agrandit l'image de profil
+     * Cache les détails du profil et agrandit l'image de profil
      */
     private void hideDetails() {
         if (!detailsShow || swipeAnimRunning)
@@ -184,7 +189,8 @@ public class MainActivity extends AppCompatActivity {
         nameAlphaAnim.setDuration(shortAnimationDuration);
         nameAlphaAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -192,13 +198,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         Animations.AlphaAnimation detailsAlphaAnim = new Animations.AlphaAnimation(mDetails, 0);
         detailsAlphaAnim.setDuration(shortAnimationDuration);
         detailsAlphaAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -206,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
 
         mImagesContainer.startAnimation(imageResizeAnim);
@@ -217,15 +226,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Change la photo de profil affichée
-     * L'app utilise une logique de swap buffer afin de n'utiliser que deux ImageView
-     * @param rightTransition Indique si c'est une transition vers le prochain profil ou vers le profil précédent
+     * Change la photo de profil affichée.
+     * L'App utilise une logique de swap buffer afin de n'utiliser que deux ImageView tout en
+     * donnant l'illusion à l'utilisateur de parcourir une séquence continue d'image.
+     *
+     * @param rightTransition Indique si c'est une transition vers le prochain profil (vers la droite)
+     *                        ou vers le profil précédent (vers la gauche)
      */
     private void updateProfil(boolean rightTransition) {
         swipeAnimRunning = true;
 
+        // curImage pointe vers l'ImageView à l'écran
+        // bufImage pointe vers l'ImageView qu'on va utilise pour afficher le nouveau profil
         final ImageView curImage;
         final ImageView bufImage;
+        // Le booléen "swap" indique quelle ImageView est actuellement utilisée
         if (swap) {
             curImage = mImage1;
             bufImage = mImage2;
@@ -234,22 +249,25 @@ public class MainActivity extends AppCompatActivity {
             bufImage = mImage1;
         }
 
-        bufImage.setImageResource(Data.profils[curProfil]);
-        int width = getResources().getDisplayMetrics().widthPixels / 2 + curImage.getWidth() / 2;
+        // On place bufImage hors de l'écran à droite ou à gauche
+        bufImage.setImageResource(Data.profilePictures[curProfil]);
+        int initialX = getResources().getDisplayMetrics().widthPixels / 2 + curImage.getWidth() / 2;
         if (!rightTransition)
-            width *= -1;
-
-        bufImage.setTranslationX(width);
+            initialX *= -1;
+        bufImage.setTranslationX(initialX);
         bufImage.setVisibility(View.VISIBLE);
 
+        // Animation de bufImage entrant à l'écran
         Animations.TranslateXAnimation bufImageTranslationnim = new Animations.TranslateXAnimation(bufImage, 0f);
         bufImageTranslationnim.setDuration(shortAnimationDuration);
 
-        Animations.TranslateXAnimation curImageTranslationAnim = new Animations.TranslateXAnimation(curImage, -width);
+        // Animation de curImage sortant de l'écran
+        Animations.TranslateXAnimation curImageTranslationAnim = new Animations.TranslateXAnimation(curImage, -initialX);
         curImageTranslationAnim.setDuration(shortAnimationDuration);
         curImageTranslationAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -259,7 +277,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
 
         bufImage.startAnimation(bufImageTranslationnim);
@@ -272,17 +291,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Update de text de description du profil
+     * Update de text de description du profil à l'écran
      */
     private void updateDetails() {
-        mDetails.setText(Data.profilDetails[curProfil]);
-        mName.setText(Data.profilName[curProfil]);
+        mDetails.setText(Data.profileDetails[curProfil]);
+        mName.setText(Data.profileName[curProfil]);
     }
 
     /**
      * Afficher le profil suivant
      */
-    private void nextProfil() {
+    private void nextProfile() {
         if (swipeAnimRunning)
             return;
 
@@ -295,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Afficher le profil précédent
      */
-    private void prevProfil() {
+    private void prevProfile() {
         if (swipeAnimRunning)
             return;
 
@@ -333,21 +352,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (Math.abs(velocityX) > Math.abs(velocityY)) {
-                // c'est un swip horizontal
+                // c'est un swipe horizontal
                 if (velocityX > 0) {
-                    // c'est un swip vers la droite
-                    prevProfil();
+                    // c'est un swipe vers la droite
+                    prevProfile();
                 } else {
-                    // c'est un swip vers la gauche
-                    nextProfil();
+                    // c'est un swipe vers la gauche
+                    nextProfile();
                 }
             } else {
-                // c'est un swip vertical
+                // c'est un swipe vertical
                 if (velocityY > 0) {
-                    // c'est un swip vers le bas
+                    // c'est un swipe vers le bas
                     hideDetails();
                 } else {
-                    // c'est un swip vers le haut
+                    // c'est un swipe vers le haut
                     showDetails();
                 }
             }

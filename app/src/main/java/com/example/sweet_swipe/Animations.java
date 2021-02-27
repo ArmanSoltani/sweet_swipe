@@ -1,19 +1,27 @@
-package com.example.tp3_ai08;
+package com.example.sweet_swipe;
 
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+
 /**
- * Regroupe l'ensemble des animations de l'app
+ * Regroupe l'ensemble des animations de l'App
  */
 public class Animations {
+    /**
+     * Animation d'un coeur. Le coeur va suivre une trajectoire balistique très simple pour
+     * donner l'illusion qu'il tombe. On va également interpoler la transparence du coeur au cours
+     * de l'animation.
+     */
     public static class HearthAnimation extends Animation {
-        final float G = 5000f;
+        final float G = 5000f; // constante d'accélération vers le bas
         final float startAlpha;
         final float targetAlpha;
+        // Position initiale
         final float startX;
         final float startY;
+        // Vélicoté initiale
         final float startVx;
         final float startVy;
         View view;
@@ -45,6 +53,9 @@ public class Animations {
         }
     }
 
+    /**
+     * Animation de la transparence d'une View par interpolation linéaire
+     */
     public static class AlphaAnimation extends Animation {
         final float startAlpha;
         final float targetAlpha;
@@ -68,6 +79,9 @@ public class Animations {
         }
     }
 
+    /**
+     * Animation de la taille d'une View par interpolation linéaire
+     */
     public static class ResizeHeightAnimation extends Animation {
         final int startHeight;
         final int targetHeight;
@@ -81,8 +95,7 @@ public class Animations {
 
         @Override
         protected void applyTransformation(float interpolatedTime, Transformation t) {
-            int newHeight = (int) (startHeight + (targetHeight - startHeight) * interpolatedTime);
-            view.getLayoutParams().height = newHeight;
+            view.getLayoutParams().height = (int) (startHeight + (targetHeight - startHeight) * interpolatedTime);
             view.requestLayout();
         }
 
@@ -92,6 +105,9 @@ public class Animations {
         }
     }
 
+    /**
+     * Animation de la position X d'une View par interpolation linéaire
+     */
     public static class TranslateXAnimation extends Animation {
         final float startX;
         final float targetX;

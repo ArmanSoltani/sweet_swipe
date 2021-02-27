@@ -65,7 +65,7 @@
             android:layout_marginRight="20dp"
             android:paddingBottom="5dp"
             android:textSize="15sp"
-            tools:text="Hello, je m'appelle Lisa et j'aime coder !!" />
+            tools:text="Hello, ...................................." />
 
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.example.tp3_ai08;
+package com.example.sweet_swipe;
 
 import org.junit.Test;
 

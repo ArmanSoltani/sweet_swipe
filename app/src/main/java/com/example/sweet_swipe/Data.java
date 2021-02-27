@@ -1,17 +1,18 @@
-package com.example.tp3_ai08;
+package com.example.sweet_swipe;
+
 
 /**
- * La classe Data regroupe les données statics de l'app
- * Dans notre cas elle contient une liste d'image de profil ainsi qu'une liste de nom et de description
+ * La classe Data regroupe les données statiques de l'App
+ * Dans notre cas, elle contient une liste d'images de profil ainsi qu'une liste de noms et de description
  */
 public class Data {
-    static int[] profils = {R.drawable.pp01, R.drawable.pp02, R.drawable.pp03, R.drawable.pp04, R.drawable.pp05,
+    static int[] profilePictures = {R.drawable.pp01, R.drawable.pp02, R.drawable.pp03, R.drawable.pp04, R.drawable.pp05,
             R.drawable.pp06, R.drawable.pp07, R.drawable.pp08, R.drawable.pp09, R.drawable.pp10, R.drawable.pp11,
             R.drawable.pp12, R.drawable.pp13, R.drawable.pp14, R.drawable.pp15, R.drawable.pp16, R.drawable.pp17,
             R.drawable.pp18, R.drawable.pp19, R.drawable.pp20};
     static int nbProfil = 20;
 
-    static String[] profilName = {
+    static String[] profileName = {
             "Jeff, 28",
             "Eli, 34",
             "Danny, 42",
@@ -34,7 +35,7 @@ public class Data {
             "Adam, 54"
     };
 
-    static String[] profilDetails = {
+    static String[] profileDetails = {
             "I love New Yorker articles, staring out the window and wondering about other people’s lives on long car rides, and that first sip of beer you have after a long week on a Friday night. (Preferably it’s an IPA, but I like all kinds of craft brews.) Interested in meeting people who are interesting.",
 
             "Sunday fundays > lazy Sundays\n" +
