@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TP3_AI08</string>
+    <string name="instruction">"Swipe à droite ou à gauche pour voir un autre profil, swipe vers le haut pour afficher les détails du profil et vers le bas pour cacher les détails."
+                               "Double cliquer sur un profil pour envoyer de l'amour ❤︎"
+                               "\nToutes les images sont générées par une IA via le site thispersondoesnotexist.com</string>
+    <string name="img_desc">profil pic</string>
+</resources>
